@@ -14,7 +14,7 @@ const { chromium } = require("playwright");
     deviceScaleFactor: 3, // retina quality (important)
   });
 
-  await page.goto("127.0.0.1:5500/rising_star_poster_rohit.html", {
+  await page.goto("127.0.0.1:5500/index.html", {
     waitUntil: "networkidle",
   });
 

@@ -3,6 +3,7 @@ pages:
   tags:
     - office-lab
   script:
+    - mkdir -p public
     - mv index.html public/
   artifacts:
     paths:

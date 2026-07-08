@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VOTE ROHIT — Chat Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #04060c; }
+  body { font-family: 'Space Grotesk', sans-serif; }
+
+  .card {
+    width: 1200px; height: 630px;
+    background: #070A13;
+    color: #F5F7FF;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(245,247,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,247,255,0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .card::after {
+    content: '';
+    position: absolute; top: -200px; right: -160px;
+    width: 640px; height: 640px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,195,0,0.16) 0%, rgba(255,59,92,0.05) 45%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .main {
+    position: relative; z-index: 1;
+    flex: 1;
+    display: flex; align-items: center; gap: 40px;
+    padding: 30px 48px 12px;
+  }
+
+  .photo-wrap { position: relative; flex-shrink: 0; width: 252px; }
+  .photo-frame {
+    width: 252px; height: 316px;
+    border-radius: 20px; overflow: hidden;
+    border: 2.5px solid rgba(255,195,0,0.55);
+    box-shadow: 0 0 0 7px rgba(255,195,0,0.07), 0 26px 60px rgba(0,0,0,0.55);
+    position: relative;
+  }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
+  .photo-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(7,10,19,0.72) 100%);
+  }
+  .photo-name {
+    position: absolute; left: 0; right: 0; bottom: 13px;
+    text-align: center; z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #F5F7FF;
+  }
+  .photo-name span { color: #FFC300; }
+  .finalist-stamp {
+    position: absolute; top: -16px; right: -14px; z-index: 3;
+    background: #FFC300; color: #131000;
+    font-family: 'Anton', sans-serif;
+    font-size: 16px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 10px 18px 9px; border-radius: 9px;
+    transform: rotate(6deg);
+    box-shadow: 0 12px 30px rgba(255,195,0,0.35);
+  }
+  .finalist-stamp small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    margin-top: 2px; opacity: 0.75;
+  }
+
+  .text { flex: 1; min-width: 0; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(245,247,255,0.55);
+    margin-bottom: 14px;
+  }
+  .eyebrow b { color: #2EE87E; }
+  .headline {
+    font-family: 'Anton', sans-serif;
+    font-size: 120px; line-height: 0.95; letter-spacing: 1px;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .headline .gold { color: #FFC300; text-shadow: 0 0 50px rgba(255,195,0,0.4); }
+  .sub {
+    margin-top: 16px;
+    font-size: 22px; line-height: 1.5;
+    color: rgba(245,247,255,0.55);
+  }
+  .sub strong { color: #F5F7FF; font-weight: 600; }
+
+  .live-row {
+    margin-top: 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid rgba(255,59,92,0.5);
+    background: rgba(255,59,92,0.12);
+    color: #FF8598; border-radius: 100px;
+    padding: 9px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #FF3B5C; box-shadow: 0 0 10px rgba(255,59,92,0.9); }
+  .dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 700; letter-spacing: 1.5px;
+    color: rgba(245,247,255,0.65); text-transform: uppercase;
+  }
+  .dates b { color: #FFC300; }
+
+  .qr-col { flex-shrink: 0; text-align: center; }
+  .qr-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 14px 14px 10px;
+    box-shadow: 0 0 0 3.5px #FFC300, 0 26px 60px rgba(0,0,0,0.5);
+  }
+  .qr-card img { width: 208px; height: 208px; display: block; }
+  .qr-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: #131000; padding-top: 8px;
+  }
+
+  .tape {
+    position: relative; z-index: 1;
+    background:
+      repeating-linear-gradient(-45deg, rgba(19,16,0,0.12) 0 14px, transparent 14px 28px),
+      linear-gradient(90deg, #FFD84D, #FFC300);
+    padding: 14px 0;
+    text-align: center; white-space: nowrap; overflow: hidden;
+    font-family: 'Anton', sans-serif;
+    font-size: 19px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #131000;
+  }
+  .tape span { margin: 0 18px; }
+  .tape .sep { opacity: 0.55; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="main">
+    <div class="photo-wrap">
+      <div class="finalist-stamp">Top 8<small>Finalist</small></div>
+      <div class="photo-frame">
+        <img src="profilephoto.png" alt="Rohit Jagannath Darekar">
+      </div>
+      <p class="photo-name">Rohit <span>Darekar</span> · AIT1315</p>
+    </div>
+
+    <div class="text">
+      <p class="eyebrow">Rising Star of the Year <b>// ACE Awards 2026</b></p>
+      <h1 class="headline">Vote <span class="gold">Rohit</span></h1>
+      <p class="sub">I automate everything at work — <strong>except this.</strong><br>Voting is still manual, and I need <strong>you</strong>.</p>
+      <div class="live-row">
+        <span class="live-pill"><span class="live-dot"></span>Voting live</span>
+        <span class="dates">closes <b>15 July 2026</b></span>
+      </div>
+    </div>
+
+    <div class="qr-col">
+      <div class="qr-card">
+        <img src="data:image/png;base64,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0FIFAACAlioAAAC0VAEAAKClCgAAAC1VAAAAaKkCAABAS79+/xEy5soL9+wA/xljrrxwz84LY668cM/Ol4y58sI9O18x5grJPTskY668cM/Ol4y5QnLPzgtjrrxwz86XjLnywj07X1EBAACgpQoAAAAtVQAAAGipAgAAQEsVAAAAWqoAAADQUgUAAICWKgAAALRUAQAAoKUKAAAALVUAAABoqQIAAEBLFQAAAFqqAAAA0FIFAACAlioAAAC0VAEAAKClCgAAAC1VAAAAaKkCAABASxUAAABa+vX7j3zImCsk9+y8MOYK79yz8yVjrnzJPTsvjLnywj07L4y58sI9O92NufIl9+zAX2OufMk9Oy+MufLCPTu8M+bKC/fsdFcBAACgpQoAAAAtVQAAAGipAgAAQEsVAAAAWqoAAADQUgUAAICWKgAAALRUAQAAoKUKAAAALVUAAABoqQIAAEBLFQAAAFqqAAAA0FIFAACAlioAAAC0VAEAAKClCgAAAC1VAAAAaKkCAABASxUAAABa+snH3LPzwpgrXzLmygv37Lww5soL9+x8yZgrL9yz88I9O18y5grfM+bKV9yz8yVjrrxwz86XjLnywj07JPfskIy58sI9Oy+MufLCPTsv3LPzwpgrL9yz8xUVAAAAWqoAAADQUgUAAICWKgAAALRUAQAAoKUKAAAALVUAAABoqQIAAEBLFQAAAFqqAAAA0FIFAACAlioAAAC0VAEAAKClCgAAAC1VAAAAaKkCAABASxUAAABaqgAAANBSBQAAgJYqAAAAtFQBAACgpZ98zJgrL9yz88KYKy/cs0My5sqX3LPzwpgrL9yz88KYK/DXPTsvjLnyFWOufMmYKy/cs/PCPTsvjLnywj07XzLmygv37Lxwz84LY668MObKl4y58sI9O7xRAQAAoKUKAAAALVUAAABoqQIAAEBLFQAAAFqqAAAA0FIFAACAlioAAAC0VAEAAKClCgAAAC1VAAAAaKkCAABASxUAAABaqgAAANBSBQAAgJYqAAAAtFQBAACgpQoAAAAtVQAAAGipAgAAQEsVAAAAWvr1+4/wOWOufMk9O18y5soL9+y8MOYKvHbPTndjrnzJPTtfMubKC/fsfMmYK19yz84LY668cM/OC2OuvHDPzgtjrrxwz84LY668cM9OdxUAAABaqgAAANBSBQAAgJYqAAAA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" alt="Scan to vote">
+        <p class="qr-caption">Scan → Vote</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tape">
+    <span>Vote takes 30 seconds</span><span class="sep">◆</span>
+    <span>synergy2026.aitglobalindia.com/ace</span><span class="sep">◆</span>
+    <span>08 — 15 July 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

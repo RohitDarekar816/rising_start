@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOTE ROHIT — Rising Star of the Year · ACE Awards 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #070A13;
+    --panel: #0E1322;
+    --edge: rgba(245,247,255,0.09);
+    --gold: #FFC300;
+    --gold-soft: rgba(255,195,0,0.14);
+    --live: #FF3B5C;
+    --deploy: #2EE87E;
+    --paper: #F5F7FF;
+    --dim: rgba(245,247,255,0.55);
+    --faint: rgba(245,247,255,0.32);
+  }
+
+  html, body { background: #04060c; height: 100%; overflow: hidden; }
+  body { font-family: 'Space Grotesk', sans-serif; }
+
+  .viewport {
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .stage {
+    width: 720px; height: 1280px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    color: var(--paper);
+    transform-origin: center center;
+    flex-shrink: 0;
+  }
+
+  .stage::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(245,247,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,247,255,0.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+    z-index: 0;
+    animation: gridIn 1s ease both;
+  }
+  @keyframes gridIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .stage::after {
+    content: '';
+    position: absolute;
+    top: -160px; right: -140px;
+    width: 540px; height: 540px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,195,0,0.14) 0%, rgba(255,59,92,0.05) 45%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+    animation: glowBreathe 5s ease-in-out infinite;
+  }
+  @keyframes glowBreathe { 0%,100% { opacity: 0.8; } 50% { opacity: 1.15; } }
+
+  /* rising star particles */
+  #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+  .particle {
+    position: absolute;
+    bottom: -30px;
+    color: var(--gold);
+    animation: rise linear infinite;
+    text-shadow: 0 0 12px rgba(255,195,0,0.7);
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    8%   { opacity: var(--po, 0.5); }
+    85%  { opacity: var(--po, 0.5); }
+    100% { transform: translateY(-1360px) rotate(220deg); opacity: 0; }
+  }
+
+  .content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; }
+
+  /* impact shake on whole stage */
+  .content.shake { animation: shake 0.35s ease 0.75s, shake 0.35s ease 1.35s; }
+  @keyframes shake {
+    0%,100% { transform: translate(0,0); }
+    25% { transform: translate(-5px, 3px); }
+    50% { transform: translate(4px, -3px); }
+    75% { transform: translate(-2px, 2px); }
+  }
+
+  /* ===== STATUS BAR ===== */
+  .statusbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 36px 18px;
+    border-bottom: 1px solid var(--edge);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    animation: dropIn 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) 0.15s both;
+  }
+  @keyframes dropIn { from { transform: translateY(-60px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .statusbar .brand { color: var(--dim); font-weight: 500; }
+  .statusbar .brand b { color: var(--gold); font-weight: 700; }
+
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(255,59,92,0.45);
+    background: rgba(255,59,92,0.10);
+    color: #FF7A90; border-radius: 100px;
+    padding: 7px 15px; font-weight: 700; font-size: 12px;
+    animation: pillPop 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) 0.5s both;
+  }
+  @keyframes pillPop { from { transform: scale(0); } to { transform: scale(1); } }
+
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--live);
+    box-shadow: 0 0 10px rgba(255,59,92,0.9);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ===== HERO ===== */
+  .hero {
+    display: flex; align-items: center; gap: 24px;
+    padding: 30px 36px 4px;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--dim);
+    margin-bottom: 14px;
+    animation: fadeUp 0.5s ease 0.55s both;
+  }
+  .eyebrow .accent { color: var(--deploy); }
+  @keyframes fadeUp { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .headline {
+    font-family: 'Anton', sans-serif;
+    font-size: 104px; line-height: 0.92; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--paper);
+  }
+  .headline .word { display: block; }
+  .headline .white { animation: slam 0.45s cubic-bezier(0.15, 1.2, 0.3, 1) 0.65s both; }
+  .headline .gold {
+    color: var(--gold);
+    text-shadow: 0 0 44px rgba(255,195,0,0.4);
+    animation: slam 0.45s cubic-bezier(0.15, 1.2, 0.3, 1) 1.25s both;
+  }
+  @keyframes slam {
+    0%   { transform: scale(2.6); opacity: 0; filter: blur(10px); }
+    60%  { transform: scale(0.96); opacity: 1; filter: blur(0); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .hero-sub {
+    margin-top: 16px;
+    font-size: 16px; line-height: 1.55; color: var(--dim);
+    animation: fadeUp 0.6s ease 1.9s both;
+  }
+  .hero-sub strong { color: var(--paper); font-weight: 600; }
+
+  /* photo */
+  .photo-wrap {
+    position: relative; flex-shrink: 0; width: 210px;
+    animation: swingIn 0.7s cubic-bezier(0.2, 1.3, 0.4, 1) 1.7s both;
+  }
+  @keyframes swingIn {
+    from { transform: translateX(140px) rotate(8deg); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+  }
+
+  .photo-frame {
+    width: 210px; height: 258px;
+    border-radius: 18px; overflow: hidden;
+    border: 2px solid rgba(255,195,0,0.55);
+    box-shadow: 0 0 0 6px rgba(255,195,0,0.07), 0 24px 50px rgba(0,0,0,0.55);
+    position: relative;
+  }
+  .photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: 50% 12%;
+    display: block;
+  }
+  .photo-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(7,10,19,0.72) 100%);
+  }
+
+  .photo-name {
+    position: absolute; left: 0; right: 0; bottom: 12px;
+    text-align: center; z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--paper);
+  }
+  .photo-name span { color: var(--gold); }
+
+  .finalist-stamp {
+    position: absolute; top: -16px; right: -12px; z-index: 3;
+    background: var(--gold); color: #131000;
+    font-family: 'Anton', sans-serif;
+    font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 9px 16px 8px; border-radius: 8px;
+    box-shadow: 0 10px 26px rgba(255,195,0,0.35);
+    animation: stampIn 0.4s cubic-bezier(0.2, 1.8, 0.4, 1) 2.25s both;
+  }
+  @keyframes stampIn {
+    0%   { transform: scale(3.2) rotate(-14deg); opacity: 0; }
+    65%  { transform: scale(0.92) rotate(7deg); opacity: 1; }
+    100% { transform: scale(1) rotate(6deg); opacity: 1; }
+  }
+  .finalist-stamp small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; font-weight: 700; letter-spacing: 2px;
+    margin-top: 2px; opacity: 0.75;
+  }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown-zone {
+    padding: 26px 36px 6px;
+    text-align: center;
+    animation: fadeUp 0.6s ease 2.5s both;
+  }
+  .cd-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--live);
+    margin-bottom: 12px;
+  }
+  .cd-row { display: flex; justify-content: center; gap: 10px; }
+  .cd-cell {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 14px;
+    width: 96px; padding: 12px 0 10px;
+  }
+  .cd-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 40px; color: var(--gold); line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--faint); margin-top: 6px;
+  }
+
+  /* ===== PIPELINE ===== */
+  .pipeline-card {
+    margin: 24px 36px 0;
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    padding: 18px 22px 20px;
+    animation: fadeUp 0.6s ease 3s both;
+  }
+  .pipeline-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 20px;
+  }
+  .pipeline-title { font-size: 11.5px; color: var(--faint); letter-spacing: 1px; }
+  .pipeline-title b { color: var(--deploy); font-weight: 500; }
+  .pipeline-status {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--gold);
+    animation: blink 2s ease-in-out 4.6s infinite;
+  }
+
+  .pipeline { display: flex; align-items: flex-start; }
+  .stage-step {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; text-align: center; position: relative;
+  }
+
+  .stage-node {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; position: relative; z-index: 2; margin-bottom: 11px;
+  }
+
+  .stage-step.done .stage-node {
+    background: rgba(46,232,126,0.12);
+    border: 1.5px solid var(--deploy);
+    color: var(--deploy);
+  }
+  .stage-step.done:nth-child(1) .stage-node { animation: nodePop 0.4s cubic-bezier(0.2,1.6,0.4,1) 3.4s both; }
+  .stage-step.done:nth-child(2) .stage-node { animation: nodePop 0.4s cubic-bezier(0.2,1.6,0.4,1) 3.8s both; }
+  @keyframes nodePop { from { transform: scale(0); } to { transform: scale(1); } }
+
+  .stage-step.active .stage-node {
+    background: var(--gold);
+    border: 1.5px solid var(--gold);
+    color: #131000;
+    animation: nodePop 0.4s cubic-bezier(0.2,1.6,0.4,1) 4.2s both,
+               throb 1.8s ease-in-out 4.6s infinite;
+  }
+  @keyframes throb {
+    0%,100% { box-shadow: 0 0 0 7px rgba(255,195,0,0.15), 0 0 30px rgba(255,195,0,0.45); }
+    50% { box-shadow: 0 0 0 12px rgba(255,195,0,0.07), 0 0 44px rgba(255,195,0,0.65); }
+  }
+
+  .stage-step.pending .stage-node {
+    background: rgba(245,247,255,0.04);
+    border: 1.5px dashed rgba(245,247,255,0.28);
+    color: var(--faint);
+    animation: nodePop 0.4s cubic-bezier(0.2,1.6,0.4,1) 4.5s both;
+  }
+
+  .stage-step:not(:last-child)::after {
+    content: '';
+    position: absolute; top: 20px;
+    left: calc(50% + 26px); width: calc(100% - 52px); height: 2px;
+    z-index: 1; transform-origin: left center;
+  }
+  .stage-step.done:nth-child(1)::after { background: var(--deploy); animation: lineGrow 0.4s ease 3.6s both; }
+  .stage-step.done:nth-child(2)::after { background: var(--deploy); animation: lineGrow 0.4s ease 4s both; }
+  .stage-step.active::after {
+    background: repeating-linear-gradient(90deg, var(--gold) 0 7px, transparent 7px 13px);
+    animation: lineGrow 0.4s ease 4.4s both;
+  }
+  @keyframes lineGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  .stage-name {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.3px;
+    color: var(--paper); margin-bottom: 3px;
+  }
+  .stage-step.pending .stage-name { color: var(--faint); }
+  .stage-step.active .stage-name { color: var(--gold); }
+
+  .stage-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--faint);
+  }
+  .stage-step.done .stage-meta { color: rgba(46,232,126,0.75); }
+  .stage-step.active .stage-meta { color: rgba(255,195,0,0.8); }
+
+  /* ===== TERMINAL ===== */
+  .terminal {
+    margin: 24px 36px 0;
+    background: #0A0E1A;
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 18px 44px rgba(0,0,0,0.45);
+    animation: fadeUp 0.6s ease 4.6s both;
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 7px;
+    padding: 11px 16px;
+    background: rgba(245,247,255,0.045);
+    border-bottom: 1px solid var(--edge);
+  }
+  .term-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .term-bar .dot:nth-child(1) { background: #FF5F57; }
+  .term-bar .dot:nth-child(2) { background: #FEBC2E; }
+  .term-bar .dot:nth-child(3) { background: #28C840; }
+  .term-bar .term-title {
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; color: var(--faint); letter-spacing: 1px;
+  }
+  .term-body {
+    padding: 16px 22px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px; line-height: 2;
+    min-height: 128px;
+  }
+  .term-body .prompt { color: var(--deploy); }
+  .term-body .flag { color: #7FB5FF; }
+  .term-body .str { color: var(--gold); }
+  .term-body .out { color: var(--dim); }
+  .term-body .ok { color: var(--deploy); font-weight: 700; }
+  .term-line { display: none; }
+  .term-line.show { display: block; animation: fadeUp 0.25s ease both; }
+  .term-body .cursor {
+    display: inline-block; width: 8px; height: 15px;
+    background: var(--deploy); vertical-align: -2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* ===== CTA ===== */
+  .cta-zone {
+    text-align: center;
+    padding: 30px 36px 0;
+    animation: fadeUp 0.5s ease 8.2s both;
+  }
+  .vote-btn {
+    display: inline-block; text-decoration: none;
+    font-family: 'Anton', sans-serif;
+    font-size: 24px; letter-spacing: 2px; text-transform: uppercase;
+    color: #131000;
+    background: linear-gradient(135deg, #FFD84D, var(--gold) 55%, #E8AB00);
+    padding: 20px 60px; border-radius: 100px;
+    box-shadow: 0 14px 40px rgba(255,195,0,0.35), inset 0 1px 0 rgba(255,255,255,0.5);
+    position: relative; overflow: hidden;
+    animation: ctaPop 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) 8.2s both,
+               breathe 2s ease-in-out 9s infinite;
+  }
+  @keyframes ctaPop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes breathe {
+    0%,100% { transform: scale(1); box-shadow: 0 14px 40px rgba(255,195,0,0.35), inset 0 1px 0 rgba(255,255,255,0.5); }
+    50% { transform: scale(1.04); box-shadow: 0 18px 54px rgba(255,195,0,0.55), inset 0 1px 0 rgba(255,255,255,0.5); }
+  }
+  .vote-btn::after {
+    content: '';
+    position: absolute; top: 0; bottom: 0; width: 60px;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.65), transparent);
+    animation: sheen 2.4s ease 9s infinite;
+  }
+  @keyframes sheen { 0% { left: -80px; } 45%,100% { left: 110%; } }
+
+  .vote-url {
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; letter-spacing: 0.5px; color: var(--dim);
+  }
+  .vote-url b { color: var(--gold); font-weight: 500; }
+
+  /* ===== TICKER + TAPE ===== */
+  .bottom-zone { margin-top: auto; }
+
+  .ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--edge);
+    padding: 12px 0;
+    animation: gridIn 0.6s ease 2.8s both;
+  }
+  .ticker-track {
+    display: inline-flex; white-space: nowrap;
+    animation: scroll 18s linear infinite;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--dim);
+  }
+  .ticker-track span { margin: 0 16px; }
+  .ticker-track .star { color: var(--gold); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .tape {
+    background:
+      repeating-linear-gradient(-45deg, rgba(19,16,0,0.12) 0 14px, transparent 14px 28px),
+      linear-gradient(90deg, #FFD84D, var(--gold));
+    padding: 13px 0;
+    overflow: hidden;
+    animation: gridIn 0.6s ease 2.8s both;
+  }
+  .tape-track {
+    display: inline-flex; white-space: nowrap;
+    animation: scroll 14s linear infinite;
+    font-family: 'Anton', sans-serif;
+    font-size: 17px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #131000;
+  }
+  .tape-track span { margin: 0 16px; }
+  .tape-track .sep { opacity: 0.55; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .term-line { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="viewport">
+  <div class="stage" id="stage">
+    <div id="particles"></div>
+
+    <div class="content shake">
+
+      <!-- STATUS BAR -->
+      <div class="statusbar">
+        <span class="brand"><b>ACE AWARDS 2026</b> · FINAL ROUND</span>
+        <span class="live-pill"><span class="live-dot"></span>VOTING LIVE</span>
+      </div>
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-text">
+          <p class="eyebrow">rising star of the year <span class="accent">// top 8 finalist</span></p>
+          <h1 class="headline">
+            <span class="word white">Vote</span>
+            <span class="word gold">Rohit</span>
+          </h1>
+          <p class="hero-sub">
+            He automates everything — <strong>except this.</strong><br>
+            Voting is still manual. He needs <strong>you</strong>.
+          </p>
+        </div>
+        <div class="photo-wrap">
+          <div class="finalist-stamp">Top 8<small>Finalist</small></div>
+          <div class="photo-frame">
+            <img src="profilephoto.png" alt="Rohit Jagannath Darekar">
+          </div>
+          <p class="photo-name">Rohit <span>Darekar</span></p>
+        </div>
+      </div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown-zone">
+        <p class="cd-label">— voting closes in —</p>
+        <div class="cd-row">
+          <div class="cd-cell"><div class="cd-num" id="cd-d">--</div><div class="cd-unit">days</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-h">--</div><div class="cd-unit">hours</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-m">--</div><div class="cd-unit">minutes</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-s">--</div><div class="cd-unit">seconds</div></div>
+        </div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="pipeline-card">
+        <div class="pipeline-head">
+          <span class="pipeline-title">pipeline: <b>rising-star/2026</b> · run #final</span>
+          <span class="pipeline-status">awaiting approval: YOU</span>
+        </div>
+        <div class="pipeline">
+          <div class="stage-step done">
+            <div class="stage-node">✓</div>
+            <p class="stage-name">Nominated</p>
+            <p class="stage-meta">passed</p>
+          </div>
+          <div class="stage-step done">
+            <div class="stage-node">✓</div>
+            <p class="stage-name">Top 8 Shortlist</p>
+            <p class="stage-meta">passed</p>
+          </div>
+          <div class="stage-step active">
+            <div class="stage-node">★</div>
+            <p class="stage-name">Your Vote</p>
+            <p class="stage-meta">in progress</p>
+          </div>
+          <div class="stage-step pending">
+            <div class="stage-node"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v5a6 6 0 0 1-12 0V3z"/><path d="M6 5H3a3 3 0 0 0 3 4M18 5h3a3 3 0 0 1-3 4"/><path d="M12 14v4M8 21h8M10 18h4v3h-4z"/></svg></div>
+            <p class="stage-name">Rising Star</p>
+            <p class="stage-meta">up to you</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERMINAL -->
+      <div class="terminal">
+        <div class="term-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="term-title">you@ait: ~/ace-awards</span>
+        </div>
+        <div class="term-body">
+          <div class="term-line show"><span class="prompt">$</span> <span id="typed"></span><span class="cursor" id="type-cursor"></span></div>
+          <div class="term-line" id="out1"><span class="out">→ verifying finalist… <span class="ok">found in TOP 8 ✓</span></span></div>
+          <div class="term-line" id="out2"><span class="out">→ casting vote… <span class="ok">done in 0.3s — that's all it takes ✓</span></span></div>
+          <div class="term-line" id="out3"><span class="prompt">$</span> <span class="cursor"></span></div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-zone">
+        <a class="vote-btn" href="https://synergy2026.aitglobalindia.com/ace?round=2" target="_blank" rel="noopener noreferrer">★ Cast Your Vote ★</a>
+        <p class="vote-url">vote at <b>synergy2026.aitglobalindia.com/ace</b></p>
+      </div>
+
+      <!-- BOTTOM -->
+      <div class="bottom-zone">
+        <div class="ticker">
+          <div class="ticker-track" id="ticker-track">
+            <span><span class="star">★</span> Innovation Igniter · Q1 2026</span>
+            <span><span class="star">★</span> Wall of Fame · Feb 2026</span>
+            <span><span class="star">★</span> GOM Award · Dec 2025</span>
+            <span><span class="star">★</span> Automation Champion</span>
+            <span><span class="star">★</span> ID AIT1315 · IT &amp; DevOps</span>
+          </div>
+        </div>
+        <div class="tape">
+          <div class="tape-track" id="tape-track">
+            <span>Voting lines open</span><span class="sep">◆</span>
+            <span>08 — 15 July 2026</span><span class="sep">◆</span>
+            <span>Every vote counts</span><span class="sep">◆</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // scale 720x1280 stage to fit any screen
+  function fit() {
+    const s = Math.min(innerWidth / 720, innerHeight / 1280);
+    document.getElementById('stage').style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  addEventListener('resize', fit);
+
+  // duplicate marquee tracks for seamless loop
+  for (const id of ['ticker-track', 'tape-track']) {
+    const el = document.getElementById(id);
+    el.innerHTML += el.innerHTML;
+  }
+
+  // live countdown to end of voting (IST)
+  const deadline = new Date('2026-07-15T23:59:59+05:30').getTime();
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    let ms = Math.max(0, deadline - Date.now());
+    const d = Math.floor(ms / 86400000);
+    const h = Math.floor(ms / 3600000) % 24;
+    const m = Math.floor(ms / 60000) % 60;
+    const s = Math.floor(ms / 1000) % 60;
+    document.getElementById('cd-d').textContent = pad(d);
+    document.getElementById('cd-h').textContent = pad(h);
+    document.getElementById('cd-m').textContent = pad(m);
+    document.getElementById('cd-s').textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // terminal typewriter
+  const cmd = [
+    ['', 'ace vote '],
+    ['flag', '--category '],
+    ['str', '"rising-star" '],
+    ['flag', '--for '],
+    ['str', '"ROHIT DAREKAR"'],
+  ];
+  const typed = document.getElementById('typed');
+  let seg = 0, ch = 0;
+  let spans = cmd.map(([cls]) => {
+    const s = document.createElement('span');
+    if (cls) s.className = cls;
+    typed.appendChild(s);
+    return s;
+  });
+  function typeStep() {
+    if (seg >= cmd.length) {
+      document.getElementById('type-cursor').style.display = 'none';
+      setTimeout(() => document.getElementById('out1').classList.add('show'), 500);
+      setTimeout(() => document.getElementById('out2').classList.add('show'), 1200);
+      setTimeout(() => document.getElementById('out3').classList.add('show'), 1800);
+      return;
+    }
+    const text = cmd[seg][1];
+    spans[seg].textContent = text.slice(0, ++ch);
+    if (ch >= text.length) { seg++; ch = 0; }
+    setTimeout(typeStep, 34 + Math.random() * 40);
+  }
+  setTimeout(typeStep, 5300);
+
+  // rising star particles
+  const pc = document.getElementById('particles');
+  const glyphs = ['★', '✦', '·', '✧'];
+  for (let i = 0; i < 26; i++) {
+    const p = document.createElement('span');
+    p.className = 'particle';
+    p.textContent = glyphs[i % glyphs.length];
+    p.style.left = (2 + (i * 37) % 96) + '%';
+    p.style.fontSize = (9 + (i * 7) % 17) + 'px';
+    p.style.setProperty('--po', (0.25 + ((i * 13) % 50) / 100).toFixed(2));
+    p.style.animationDuration = (7 + (i * 11) % 9) + 's';
+    p.style.animationDelay = ((i * 1.7) % 10) + 's';
+    pc.appendChild(p);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOTE ROHIT — Rising Star of the Year · ACE Awards 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #070A13;
+    --panel: #0E1322;
+    --edge: rgba(245,247,255,0.09);
+    --gold: #FFC300;
+    --gold-soft: rgba(255,195,0,0.14);
+    --live: #FF3B5C;
+    --deploy: #2EE87E;
+    --paper: #F5F7FF;
+    --dim: rgba(245,247,255,0.55);
+    --faint: rgba(245,247,255,0.32);
+  }
+
+  body {
+    background: #04060c;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Space Grotesk', sans-serif;
+    padding: 24px 12px;
+  }
+
+  .poster {
+    width: 720px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--edge);
+    border-radius: 22px;
+    color: var(--paper);
+  }
+
+  /* faint grid — mission-control backdrop */
+  .poster::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(245,247,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,247,255,0.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+    z-index: 0;
+  }
+
+  /* warm glow behind hero */
+  .poster::after {
+    content: '';
+    position: absolute;
+    top: -180px; right: -160px;
+    width: 560px; height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,195,0,0.13) 0%, rgba(255,59,92,0.05) 45%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .content { position: relative; z-index: 1; }
+
+  /* ===== STATUS BAR ===== */
+  .statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 34px;
+    border-bottom: 1px solid var(--edge);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .statusbar .brand { color: var(--dim); font-weight: 500; }
+  .statusbar .brand b { color: var(--gold); font-weight: 700; }
+
+  .live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255,59,92,0.45);
+    background: rgba(255,59,92,0.10);
+    color: #FF7A90;
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-weight: 700;
+  }
+
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--live);
+    box-shadow: 0 0 10px rgba(255,59,92,0.9);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ===== HERO ===== */
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 36px 34px 8px;
+  }
+
+  .hero-text { flex: 1; min-width: 0; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 14px;
+  }
+  .eyebrow .accent { color: var(--deploy); }
+
+  .headline {
+    font-family: 'Anton', sans-serif;
+    font-size: 96px;
+    line-height: 0.92;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  .headline .gold {
+    display: block;
+    color: var(--gold);
+    text-shadow: 0 0 44px rgba(255,195,0,0.35);
+  }
+
+  .hero-sub {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--dim);
+    max-width: 360px;
+  }
+  .hero-sub strong { color: var(--paper); font-weight: 600; }
+
+  /* photo block */
+  .photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 218px;
+  }
+
+  .photo-frame {
+    width: 218px;
+    height: 268px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid rgba(255,195,0,0.55);
+    box-shadow:
+      0 0 0 6px rgba(255,195,0,0.07),
+      0 24px 50px rgba(0,0,0,0.55);
+    position: relative;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 12%;
+    display: block;
+  }
+
+  .photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(7,10,19,0.72) 100%);
+  }
+
+  .photo-name {
+    position: absolute;
+    left: 0; right: 0; bottom: 12px;
+    text-align: center;
+    z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .photo-name span { color: var(--gold); }
+
+  .finalist-stamp {
+    position: absolute;
+    top: -16px;
+    right: -14px;
+    z-index: 3;
+    background: var(--gold);
+    color: #131000;
+    font-family: 'Anton', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 9px 16px 8px;
+    border-radius: 8px;
+    transform: rotate(6deg);
+    box-shadow: 0 10px 26px rgba(255,195,0,0.35);
+  }
+  .finalist-stamp small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 2px;
+    opacity: 0.75;
+  }
+
+  /* ===== IDENTITY ROW ===== */
+  .identity {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 22px 34px 26px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--dim);
+  }
+  .id-chip {
+    border: 1px solid var(--edge);
+    background: rgba(245,247,255,0.04);
+    border-radius: 100px;
+    padding: 6px 14px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .id-chip b { color: var(--paper); font-weight: 500; }
+
+  /* ===== PIPELINE (signature) ===== */
+  .pipeline-card {
+    margin: 0 34px 24px;
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    padding: 20px 24px 24px;
+  }
+
+  .pipeline-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 22px;
+  }
+  .pipeline-title { font-size: 12px; color: var(--faint); letter-spacing: 1px; }
+  .pipeline-title b { color: var(--deploy); font-weight: 500; }
+  .pipeline-status {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .pipeline {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .stage-node {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 12px;
+  }
+
+  .stage.done .stage-node {
+    background: rgba(46,232,126,0.12);
+    border: 1.5px solid var(--deploy);
+    color: var(--deploy);
+  }
+
+  .stage.active .stage-node {
+    background: var(--gold);
+    border: 1.5px solid var(--gold);
+    color: #131000;
+    box-shadow: 0 0 0 7px rgba(255,195,0,0.15), 0 0 30px rgba(255,195,0,0.45);
+    animation: throb 1.8s ease-in-out infinite;
+  }
+  @keyframes throb {
+    0%,100% { box-shadow: 0 0 0 7px rgba(255,195,0,0.15), 0 0 30px rgba(255,195,0,0.45); }
+    50% { box-shadow: 0 0 0 11px rgba(255,195,0,0.08), 0 0 40px rgba(255,195,0,0.6); }
+  }
+
+  .stage.pending .stage-node {
+    background: rgba(245,247,255,0.04);
+    border: 1.5px dashed rgba(245,247,255,0.28);
+    color: var(--faint);
+  }
+
+  /* connector line */
+  .stage:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: calc(50% + 26px);
+    width: calc(100% - 52px);
+    height: 2px;
+    z-index: 1;
+  }
+  .stage.done:not(:last-child)::after { background: var(--deploy); }
+  .stage.active:not(:last-child)::after {
+    background: repeating-linear-gradient(90deg, var(--gold) 0 7px, transparent 7px 13px);
+  }
+
+  .stage-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--paper);
+    margin-bottom: 4px;
+  }
+  .stage.pending .stage-name { color: var(--faint); }
+  .stage.active .stage-name { color: var(--gold); }
+
+  .stage-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .stage.done .stage-meta { color: rgba(46,232,126,0.75); }
+  .stage.active .stage-meta { color: rgba(255,195,0,0.8); }
+
+  /* ===== PROOF ROW ===== */
+  .proof-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--faint);
+    padding: 0 34px;
+    margin-bottom: 12px;
+  }
+
+  .proof-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+    padding: 0 34px;
+    margin-bottom: 26px;
+  }
+
+  .proof {
+    background: rgba(245,247,255,0.035);
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    padding: 13px 12px;
+    text-align: center;
+  }
+  .proof .p-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    margin: 0 auto 8px;
+    border-radius: 10px;
+    background: var(--gold-soft);
+    color: var(--gold);
+  }
+  .proof .p-name {
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--paper);
+    margin-bottom: 4px;
+  }
+  .proof .p-when {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ===== TERMINAL CTA ===== */
+  .terminal {
+    margin: 0 34px 26px;
+    background: #0A0E1A;
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 18px 44px rgba(0,0,0,0.45);
+  }
+
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 16px;
+    background: rgba(245,247,255,0.045);
+    border-bottom: 1px solid var(--edge);
+  }
+  .term-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .term-bar .dot:nth-child(1) { background: #FF5F57; }
+  .term-bar .dot:nth-child(2) { background: #FEBC2E; }
+  .term-bar .dot:nth-child(3) { background: #28C840; }
+  .term-bar .term-title {
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--faint);
+    letter-spacing: 1px;
+  }
+
+  .term-body {
+    padding: 18px 22px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  .term-body .prompt { color: var(--deploy); }
+  .term-body .cmd { color: var(--paper); }
+  .term-body .flag { color: #7FB5FF; }
+  .term-body .str { color: var(--gold); }
+  .term-body .out { color: var(--dim); }
+  .term-body .ok { color: var(--deploy); font-weight: 700; }
+  .term-body .cursor {
+    display: inline-block;
+    width: 8px; height: 15px;
+    background: var(--deploy);
+    vertical-align: -2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* ===== CTA ===== */
+  .cta-zone {
+    text-align: center;
+    padding: 0 34px 30px;
+  }
+
+  .punchline {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--dim);
+    max-width: 520px;
+    margin: 0 auto 20px;
+  }
+  .punchline strong { color: var(--paper); }
+
+  .vote-btn {
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'Anton', sans-serif;
+    font-size: 21px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #131000;
+    background: linear-gradient(135deg, #FFD84D, var(--gold) 55%, #E8AB00);
+    padding: 18px 54px;
+    border-radius: 100px;
+    box-shadow: 0 14px 40px rgba(255,195,0,0.35), inset 0 1px 0 rgba(255,255,255,0.5);
+    margin-bottom: 14px;
+  }
+
+  .vote-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--dim);
+  }
+  .vote-url b { color: var(--gold); font-weight: 500; }
+
+  /* ===== DATE TAPE ===== */
+  .tape-wrap {
+    position: relative;
+    height: 64px;
+    margin-bottom: 4px;
+    overflow: hidden;
+  }
+  .tape {
+    position: absolute;
+    top: 50%;
+    left: -4%;
+    width: 108%;
+    transform: translateY(-50%) rotate(-1.6deg);
+    background:
+      repeating-linear-gradient(-45deg,
+        rgba(19,16,0,0.12) 0 14px, transparent 14px 28px),
+      linear-gradient(90deg, #FFD84D, var(--gold));
+    padding: 12px 0;
+    white-space: nowrap;
+    font-family: 'Anton', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #131000;
+    text-align: center;
+    box-shadow: 0 6px 30px rgba(255,195,0,0.25);
+  }
+  .tape span { margin: 0 18px; }
+  .tape .sep { opacity: 0.55; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 34px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--faint);
+    text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot, .stage.active .stage-node, .term-body .cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="content">
+
+    <!-- STATUS BAR -->
+    <div class="statusbar">
+      <span class="brand"><b>ACE AWARDS 2026</b> · FINAL ROUND</span>
+      <span class="live-pill"><span class="live-dot"></span>VOTING LIVE</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">rising star of the year <span class="accent">// top 8 finalist</span></p>
+        <h1 class="headline">Vote<span class="gold">Rohit</span></h1>
+        <p class="hero-sub">
+          He automates everything at work — <strong>except this.</strong><br>
+          Voting is still manual, and he needs <strong>you</strong>.
+        </p>
+      </div>
+      <div class="photo-wrap">
+        <div class="finalist-stamp">Top 8<small>Finalist</small></div>
+        <div class="photo-frame">
+          <img src="profilephoto.png" alt="Rohit Jagannath Darekar">
+        </div>
+        <p class="photo-name">Rohit <span>Darekar</span></p>
+      </div>
+    </div>
+
+    <!-- IDENTITY -->
+    <div class="identity">
+      <span class="id-chip">ID · <b>AIT1315</b></span>
+      <span class="id-chip">TEAM · <b>IT &amp; DevOps</b></span>
+      <span class="id-chip">CATEGORY · <b>Rising Star of the Year</b></span>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="pipeline-card">
+      <div class="pipeline-head">
+        <span class="pipeline-title">pipeline: <b>rising-star/2026</b> · run #final</span>
+        <span class="pipeline-status">awaiting approval: YOU</span>
+      </div>
+      <div class="pipeline">
+        <div class="stage done">
+          <div class="stage-node">✓</div>
+          <p class="stage-name">Nominated</p>
+          <p class="stage-meta">passed</p>
+        </div>
+        <div class="stage done">
+          <div class="stage-node">✓</div>
+          <p class="stage-name">Top 8 Shortlist</p>
+          <p class="stage-meta">passed</p>
+        </div>
+        <div class="stage active">
+          <div class="stage-node">★</div>
+          <p class="stage-name">Your Vote</p>
+          <p class="stage-meta">in progress</p>
+        </div>
+        <div class="stage pending">
+          <div class="stage-node"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v5a6 6 0 0 1-12 0V3z"/><path d="M6 5H3a3 3 0 0 0 3 4M18 5h3a3 3 0 0 1-3 4"/><path d="M12 14v4M8 21h8M10 18h4v3h-4z"/></svg></div>
+          <p class="stage-name">Rising Star</p>
+          <p class="stage-meta">up to you</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROOF -->
+    <p class="proof-label">// track record — this year alone</p>
+    <div class="proof-row">
+      <div class="proof">
+        <span class="p-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 3.6 10.8c-.6.5-.6 1.2-.6 2.2h-6c0-1-.1-1.7-.6-2.2A6 6 0 0 1 12 3z"/></svg></span>
+        <p class="p-name">Innovation Igniter</p>
+        <p class="p-when">Q1 · 2026</p>
+      </div>
+      <div class="proof">
+        <span class="p-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.9 5.9 6.6 1-4.7 4.6 1.1 6.5L12 17.4l-5.9 3.1 1.1-6.5L2.5 9.4l6.6-1L12 2.5z"/></svg></span>
+        <p class="p-name">Wall of Fame</p>
+        <p class="p-when">Feb · 2026</p>
+      </div>
+      <div class="proof">
+        <span class="p-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="15" r="5.5"/><path d="M12 12.2l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3.9-1.8z" fill="currentColor" stroke="none"/><path d="M8.5 10L5.5 3h5L12 6.5 13.5 3h5l-3 7"/></svg></span>
+        <p class="p-name">GOM Award</p>
+        <p class="p-when">Dec · 2025</p>
+      </div>
+      <div class="proof">
+        <span class="p-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></span>
+        <p class="p-name">Automation Champion</p>
+        <p class="p-when">In-house</p>
+      </div>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="term-title">you@ait: ~/ace-awards</span>
+      </div>
+      <div class="term-body">
+        <div><span class="prompt">$</span> <span class="cmd">ace vote</span> <span class="flag">--category</span> <span class="str">"rising-star"</span> <span class="flag">--for</span> <span class="str">"ROHIT DAREKAR"</span></div>
+        <div class="out">→ verifying finalist… <span class="ok">found in TOP 8 ✓</span></div>
+        <div class="out">→ casting vote… <span class="ok">done in 0.3s — that's all it takes ✓</span></div>
+        <div><span class="prompt">$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-zone">
+      <p class="punchline">
+        Two rounds down, one to go. <strong>30 seconds of your day</strong> can finish
+        what this journey started.
+      </p>
+      <a class="vote-btn" href="https://synergy2026.aitglobalindia.com/ace?round=2" target="_blank" rel="noopener noreferrer">★ Cast Your Vote ★</a>
+      <p class="vote-url">vote at <b>synergy2026.aitglobalindia.com/ace</b></p>
+    </div>
+
+    <!-- DATE TAPE -->
+    <div class="tape-wrap">
+      <div class="tape">
+        <span>08 — 15 July 2026</span><span class="sep">◆</span>
+        <span>Voting lines open</span><span class="sep">◆</span>
+        <span>08 — 15 July 2026</span><span class="sep">◆</span>
+        <span>Every vote counts</span><span class="sep">◆</span>
+        <span>Voting lines open</span><span class="sep">◆</span>
+        <span>08 — 15 July 2026</span>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <span>ACE Awards 2026 · AIT Annual Recognition</span>
+      <span>one click · one vote · one rising star</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

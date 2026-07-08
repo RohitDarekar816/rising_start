@@ -466,6 +466,28 @@
   .tape-track span { margin: 0 16px; }
   .tape-track .sep { opacity: 0.55; }
 
+  /* ===== PANIC MODE — auto-activates in the final 48 hours ===== */
+  .stage.panic .headline .gold { color: var(--live); text-shadow: 0 0 44px rgba(255,59,92,0.5); }
+  .stage.panic .cd-label { animation: blink 0.9s ease-in-out infinite; font-size: 12px; }
+  .stage.panic .cd-num { color: var(--live); }
+  .stage.panic .cd-cell { border-color: rgba(255,59,92,0.45); box-shadow: 0 0 24px rgba(255,59,92,0.12); }
+  .stage.panic .live-dot { animation-duration: 0.7s; }
+  .stage.panic .live-pill { animation: pillPop 0.5s cubic-bezier(0.2,1.6,0.4,1) 0.5s both, blink 1.2s ease-in-out 1.2s infinite; }
+  .stage.panic .pipeline-status { color: var(--live); }
+  .stage.panic .vote-btn {
+    color: #fff;
+    background: linear-gradient(135deg, #FF6B81, #FF3B5C 55%, #D91E3F);
+    box-shadow: 0 14px 40px rgba(255,59,92,0.45), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .stage.panic .tape {
+    background:
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.18) 0 14px, transparent 14px 28px),
+      linear-gradient(90deg, #FF6B81, #FF3B5C);
+  }
+  .stage.panic .tape-track { color: #2A0008; }
+  .stage.panic .particle { color: var(--live); text-shadow: 0 0 12px rgba(255,59,92,0.7); }
+  .stage.panic::after { background: radial-gradient(circle, rgba(255,59,92,0.15) 0%, rgba(255,195,0,0.04) 45%, transparent 70%); }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     .term-line { display: block; }
@@ -610,9 +632,14 @@
 
   // live countdown to end of voting (IST)
   const deadline = new Date('2026-07-15T23:59:59+05:30').getTime();
+  const PANIC_MS = 48 * 3600 * 1000; // final 48 hours
+  const panicPreview = new URLSearchParams(location.search).has('panic');
+  const stageEl = document.getElementById('stage');
+  const cdLabel = document.querySelector('.cd-label');
   function pad(n) { return String(n).padStart(2, '0'); }
   function tick() {
     let ms = Math.max(0, deadline - Date.now());
+    if (panicPreview && ms > PANIC_MS) ms = PANIC_MS - 3600000; // preview with ?panic=1
     const d = Math.floor(ms / 86400000);
     const h = Math.floor(ms / 3600000) % 24;
     const m = Math.floor(ms / 60000) % 60;
@@ -621,6 +648,13 @@
     document.getElementById('cd-h').textContent = pad(h);
     document.getElementById('cd-m').textContent = pad(m);
     document.getElementById('cd-s').textContent = pad(s);
+    const panic = ms > 0 && ms < PANIC_MS;
+    stageEl.classList.toggle('panic', panic);
+    if (ms <= 0) {
+      cdLabel.textContent = '— voting has closed — thank you! —';
+    } else if (panic) {
+      cdLabel.textContent = '!! last chance — voting closes in !!';
+    }
   }
   tick();
   setInterval(tick, 1000);

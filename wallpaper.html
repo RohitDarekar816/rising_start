@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VOTE ROHIT — Desktop Wallpaper 1920x1080</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #070A13;
+    --panel: #0E1322;
+    --gold: #FFC300;
+    --gold-2: #FFD84D;
+    --red: #FF3B5C;
+    --green: #2EE87E;
+    --paper: #F5F7FF;
+    --edge: rgba(245,247,255,0.09);
+    --gold-soft: rgba(255,195,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--ink); }
+  .wall {
+    width: 1920px; height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(1100px 700px at 18% 12%, rgba(255,195,0,0.07), transparent 60%),
+      radial-gradient(1000px 800px at 88% 90%, rgba(124,77,255,0.10), transparent 62%),
+      var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--paper);
+  }
+  /* faint grid */
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,247,255,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,247,255,0.028) 1px, transparent 1px);
+    background-size: 96px 96px;
+  }
+  /* stars */
+  .star { position: absolute; color: var(--gold); }
+
+  /* ---------- layout ---------- */
+  .content {
+    position: absolute; inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 110px 0 130px;
+    gap: 90px;
+  }
+  .left { flex: 1; min-width: 0; }
+  .right {
+    flex: 0 0 auto;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 34px;
+  }
+
+  /* ---------- left column ---------- */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 19px; font-weight: 700;
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin-bottom: 26px;
+  }
+  .eyebrow .dim { color: rgba(245,247,255,0.45); }
+  .headline {
+    font-family: 'Anton', sans-serif;
+    line-height: 0.94;
+    text-transform: uppercase;
+  }
+  .headline .row1 { font-size: 150px; color: var(--paper); letter-spacing: 2px; }
+  .headline .row2 {
+    font-size: 150px; letter-spacing: 2px;
+    background: linear-gradient(100deg, #FFD84D 10%, #FFC300 45%, #E8AB00 90%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hook {
+    margin-top: 34px;
+    font-size: 27px; line-height: 1.45;
+    color: rgba(245,247,255,0.82);
+    max-width: 760px;
+  }
+  .hook b { color: var(--gold); font-weight: 700; }
+  .meta-row {
+    margin-top: 40px;
+    display: flex; align-items: center; gap: 26px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px; font-weight: 700; letter-spacing: 3px;
+    color: var(--red);
+    border: 1.5px solid rgba(255,59,92,0.45);
+    background: rgba(255,59,92,0.08);
+    border-radius: 100px;
+    padding: 13px 26px;
+  }
+  .pill .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--red); box-shadow: 0 0 14px var(--red); }
+  .dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px; font-weight: 700; letter-spacing: 3px;
+    color: rgba(245,247,255,0.55);
+  }
+  .url {
+    margin-top: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--gold);
+  }
+  .url .prompt { color: rgba(245,247,255,0.4); }
+
+  /* ---------- right column ---------- */
+  .photo-card {
+    position: relative;
+    width: 340px; height: 420px;
+    border-radius: 22px;
+    border: 2px solid rgba(255,195,0,0.55);
+    background: var(--panel);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.55), 0 0 70px rgba(255,195,0,0.10);
+    transform: rotate(2.2deg);
+    overflow: visible;
+  }
+  .photo-card img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    border-radius: 20px;
+    display: block;
+  }
+  .photo-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(180deg, transparent 55%, rgba(7,10,19,0.75));
+  }
+  .name-tag {
+    position: absolute; left: 0; right: 0; bottom: 18px;
+    text-align: center; z-index: 2;
+  }
+  .name-tag .nm { font-family: 'Anton', sans-serif; font-size: 30px; letter-spacing: 2px; color: var(--paper); }
+  .name-tag .id { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; letter-spacing: 4px; color: var(--gold); margin-top: 4px; }
+  .stamp {
+    position: absolute; top: -22px; right: -34px; z-index: 3;
+    transform: rotate(9deg);
+    font-family: 'Anton', sans-serif;
+    font-size: 24px; letter-spacing: 2px;
+    color: #131000;
+    background: linear-gradient(120deg, var(--gold-2), var(--gold));
+    border: 3px solid #131000;
+    border-radius: 12px;
+    padding: 10px 20px;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+  }
+  .qr-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 18px 18px 12px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  .qr-card img { width: 208px; height: 208px; display: block; }
+  .qr-card .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700; letter-spacing: 3px;
+    color: #0B0E1A;
+    padding: 8px 0 4px;
+  }
+
+  /* ---------- bottom pipeline strip ---------- */
+  .pipeline {
+    position: absolute; left: 130px; right: 110px; bottom: 54px;
+    display: flex; align-items: center; gap: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stage-node {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 16px; font-weight: 700; letter-spacing: 2px;
+    color: rgba(245,247,255,0.55);
+    background: var(--panel);
+    border: 1.5px solid var(--edge);
+    border-radius: 100px;
+    padding: 13px 24px;
+    white-space: nowrap;
+  }
+  .stage-node .ic {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .stage-node.done .ic { background: rgba(46,232,126,0.15); color: var(--green); border: 1.5px solid rgba(46,232,126,0.5); }
+  .stage-node.done { color: rgba(245,247,255,0.75); }
+  .stage-node.active {
+    color: #131000;
+    background: linear-gradient(120deg, var(--gold-2), var(--gold));
+    border-color: var(--gold);
+    box-shadow: 0 0 44px rgba(255,195,0,0.35);
+  }
+  .stage-node.active .ic { background: rgba(19,16,0,0.15); color: #131000; border: 1.5px solid rgba(19,16,0,0.4); }
+  .stage-node.pending { border-style: dashed; color: rgba(245,247,255,0.4); }
+  .stage-node.pending .ic { border: 1.5px dashed rgba(245,247,255,0.35); color: rgba(245,247,255,0.4); }
+  .connector { flex: 1; height: 2px; min-width: 30px;
+    background: repeating-linear-gradient(90deg, rgba(255,195,0,0.5) 0 10px, transparent 10px 18px); }
+  .pipe-label {
+    position: absolute; left: 132px; bottom: 112px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700; letter-spacing: 3px;
+    color: rgba(245,247,255,0.35);
+  }
+  .pipe-label b { color: var(--gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="wall">
+  <div class="grid"></div>
+
+  <div class="star" style="top:90px;  left:640px;  font-size:26px; opacity:0.45;">✦</div>
+  <div class="star" style="top:180px; left:1500px; font-size:20px; opacity:0.35;">★</div>
+  <div class="star" style="top:640px; left:70px;   font-size:18px; opacity:0.3;">✧</div>
+  <div class="star" style="top:950px; left:1700px; font-size:24px; opacity:0.4;">✦</div>
+  <div class="star" style="top:60px;  left:1120px; font-size:16px; opacity:0.3;">✧</div>
+  <div class="star" style="top:820px; left:1240px; font-size:18px; opacity:0.3;">★</div>
+
+  <div class="content">
+    <div class="left">
+      <div class="eyebrow">ACE AWARDS 2026 <span class="dim">·</span> RISING STAR OF THE YEAR <span class="dim">·</span> TOP 8</div>
+      <div class="headline">
+        <div class="row1">VOTE</div>
+        <div class="row2">ROHIT DAREKAR</div>
+      </div>
+      <div class="hook">I automate everything at work — <b>except this.</b><br>Voting is still manual, and I need <b>you</b>.</div>
+      <div class="meta-row">
+        <div class="pill"><span class="dot"></span>VOTING LIVE</div>
+        <div class="dates">08 — 15 JULY 2026</div>
+      </div>
+      <div class="url"><span class="prompt">$ open</span> synergy2026.aitglobalindia.com/ace</div>
+    </div>
+
+    <div class="right">
+      <div class="photo-card">
+        <img src="profilephoto.png" alt="Rohit Darekar">
+        <div class="stamp">TOP 8 FINALIST</div>
+        <div class="name-tag">
+          <div class="nm">ROHIT DAREKAR</div>
+          <div class="id">AIT1315</div>
+        </div>
+      </div>
+      <div class="qr-card">
+        <img src="QR_PLACEHOLDER" alt="Scan to vote">
+        <div class="lbl">SCAN TO VOTE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-label">pipeline: <b>rising-star/2026</b> · run #final · AWAITING APPROVAL: YOU</div>
+  <div class="pipeline">
+    <div class="stage-node done"><span class="ic">✓</span>NOMINATED</div>
+    <div class="connector"></div>
+    <div class="stage-node done"><span class="ic">✓</span>TOP 8 SHORTLIST</div>
+    <div class="connector"></div>
+    <div class="stage-node active"><span class="ic">●</span>YOUR VOTE</div>
+    <div class="connector"></div>
+    <div class="stage-node pending"><span class="ic">★</span>RISING STAR</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LAST DAY — Vote Rohit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #04060c; }
+  body { font-family: 'Space Grotesk', sans-serif; }
+
+  .card {
+    width: 1200px; height: 630px;
+    background: #070A13;
+    color: #F5F7FF;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(245,247,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,247,255,0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  /* red alert glow instead of the usual gold one */
+  .card::after {
+    content: '';
+    position: absolute; top: -220px; right: -160px;
+    width: 680px; height: 680px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,59,92,0.18) 0%, rgba(255,195,0,0.06) 45%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── hazard strips ─────────────────────────────── */
+  .hazard {
+    position: relative; z-index: 2;
+    background:
+      repeating-linear-gradient(-45deg, rgba(7,10,19,0.35) 0 16px, transparent 16px 32px),
+      linear-gradient(90deg, #FF3B5C, #E4123C);
+    padding: 11px 0;
+    text-align: center; white-space: nowrap; overflow: hidden;
+    font-family: 'Anton', sans-serif;
+    font-size: 18px; letter-spacing: 3px; text-transform: uppercase;
+    color: #FFF3F5;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+  }
+  .hazard span { margin: 0 20px; }
+  .hazard .sep { opacity: 0.6; }
+
+  .main {
+    position: relative; z-index: 1;
+    flex: 1;
+    display: flex; align-items: center; gap: 40px;
+    padding: 16px 48px 14px;
+  }
+
+  /* ── photo ─────────────────────────────────────── */
+  .photo-wrap { position: relative; flex-shrink: 0; width: 240px; }
+  .photo-frame {
+    width: 240px; height: 318px;
+    border-radius: 18px; overflow: hidden;
+    border: 2.5px solid rgba(255,59,92,0.6);
+    box-shadow: 0 0 0 7px rgba(255,59,92,0.08), 0 26px 60px rgba(0,0,0,0.55);
+    position: relative;
+  }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
+  .photo-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(7,10,19,0.72) 100%);
+  }
+  .photo-name {
+    position: absolute; left: 0; right: 0; bottom: 11px;
+    text-align: center; z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #F5F7FF;
+  }
+  .photo-name span { color: #FFC300; }
+  .last-stamp {
+    position: absolute; top: -14px; right: -16px; z-index: 3;
+    background: #FF3B5C; color: #fff;
+    font-family: 'Anton', sans-serif;
+    font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 9px 16px 8px; border-radius: 9px;
+    transform: rotate(6deg);
+    box-shadow: 0 12px 30px rgba(255,59,92,0.45);
+  }
+  .last-stamp small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700; letter-spacing: 2px;
+    margin-top: 2px; opacity: 0.85;
+  }
+
+  /* ── text column ───────────────────────────────── */
+  .text { flex: 1; min-width: 0; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(245,247,255,0.55);
+    margin-bottom: 10px; white-space: nowrap;
+  }
+  .eyebrow b { color: #2EE87E; }
+  .headline {
+    font-family: 'Anton', sans-serif;
+    font-size: 97px; line-height: 0.95; letter-spacing: 1px;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .headline .red { color: #FF3B5C; text-shadow: 0 0 55px rgba(255,59,92,0.55); }
+  .headline .gold { color: #FFC300; text-shadow: 0 0 45px rgba(255,195,0,0.4); }
+  .sub {
+    margin-top: 16px;
+    font-size: 18.5px; line-height: 1.5;
+    color: rgba(245,247,255,0.55);
+  }
+  .sub strong { color: #F5F7FF; font-weight: 600; }
+
+  /* ── the voting-window timeline — signature ────── */
+  .window {
+    margin-top: 26px;
+    max-width: 545px;
+  }
+  .window-labels {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(245,247,255,0.45);
+    margin-bottom: 7px;
+  }
+  .window-labels .today { color: #FF3B5C; }
+  .track {
+    position: relative;
+    height: 14px; border-radius: 100px;
+    background: rgba(245,247,255,0.08);
+    border: 1px solid rgba(245,247,255,0.12);
+    overflow: visible;
+  }
+  .fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 97%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #FFC300 0%, #FF7A45 62%, #FF3B5C 100%);
+    box-shadow: 0 0 22px rgba(255,59,92,0.5);
+  }
+  .tick {
+    position: absolute; right: 3%; top: 50%;
+    width: 22px; height: 22px; border-radius: 50%;
+    transform: translate(50%, -50%);
+    background: #FF3B5C;
+    border: 3.5px solid #070A13;
+    box-shadow: 0 0 0 3px rgba(255,59,92,0.55), 0 0 26px rgba(255,59,92,0.95);
+  }
+  .window-caption {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(245,247,255,0.65);
+    white-space: nowrap;
+  }
+  .window-caption b { color: #FF3B5C; }
+
+  /* ── QR column ─────────────────────────────────── */
+  .qr-col { flex-shrink: 0; text-align: center; }
+  .qr-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 13px 13px 9px;
+    box-shadow: 0 0 0 3.5px #FF3B5C, 0 26px 60px rgba(0,0,0,0.5);
+  }
+  .qr-card img { width: 196px; height: 196px; display: block; }
+  .qr-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: #130003; padding-top: 7px;
+  }
+  .qr-under {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(245,247,255,0.5);
+  }
+  .qr-under b { color: #FFC300; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="hazard">
+    <span>Last day</span><span class="sep">◆</span>
+    <span>Last day</span><span class="sep">◆</span>
+    <span>Last day</span><span class="sep">◆</span>
+    <span>Last day</span><span class="sep">◆</span>
+    <span>Last day</span><span class="sep">◆</span>
+    <span>Last day</span><span class="sep">◆</span>
+    <span>Last day</span>
+  </div>
+
+  <div class="main">
+    <div class="photo-wrap">
+      <div class="last-stamp">Top 8<small>Finalist</small></div>
+      <div class="photo-frame">
+        <img src="profilephoto.png" alt="Rohit Jagannath Darekar">
+      </div>
+      <p class="photo-name">Rohit <span>Darekar</span> · AIT1315</p>
+    </div>
+
+    <div class="text">
+      <p class="eyebrow">Rising Star of the Year <b>// ACE Awards 2026</b></p>
+      <h1 class="headline"><span class="red">Last day</span> to<br>vote <span class="gold">Rohit</span></h1>
+      <p class="sub">8 days of voting come down to <strong>today</strong>.<br>30 seconds, one click — <strong style="white-space:nowrap">Rohit Darekar (AIT1315)</strong>.</p>
+
+      <div class="window">
+        <div class="window-labels">
+          <span>08 Jul — voting opened</span>
+          <span class="today">15 Jul — today</span>
+        </div>
+        <div class="track">
+          <div class="fill"></div>
+          <div class="tick"></div>
+        </div>
+        <p class="window-caption">Voting window: <b>closing tonight</b> — after that, it's gone.</p>
+      </div>
+    </div>
+
+    <div class="qr-col">
+      <div class="qr-card">
+        <img id="qr" src="" alt="Scan to vote">
+        <p class="qr-caption">Scan → Vote</p>
+      </div>
+      <p class="qr-under">or <b>synergy2026</b>.aitglobalindia.com/ace</p>
+    </div>
+  </div>
+
+  <div class="hazard">
+    <span>Closes tonight</span><span class="sep">◆</span>
+    <span>Vote takes 30 seconds</span><span class="sep">◆</span>
+    <span>Closes tonight</span><span class="sep">◆</span>
+    <span>Vote takes 30 seconds</span>
+  </div>
+</div>
+
+</body>
+</html>
